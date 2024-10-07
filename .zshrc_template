@@ -63,19 +63,22 @@ else
 fi
 
 ###########################
-# Shortcut Aliases
+# # Custom Shortcut Aliases
 ###########################
 
 # Changing Project Directories
 # alias <project>='workon <project>; cd ~/<project>'
 
 # Basic Shortcuts
+alias sizes="du -sh *"
+alias show="ls -a"
+alias hidden="echo .[^.]*"
+
+# Commonly used
 alias jupiter='jupyter notebook'
 alias check_format='flake8 app/ tests/ benchmark/ server.py'
 alias check_all="check_format; echo 'done checking flake8 formatting.'; pytest --disable-pytest-warnings tests/"
-alias firehose="python ~/bin/trigger_firehose"
 
-# Aliases for common tasks
 # Poetry
 alias pupdate="poetry update"
 alias pinstall="poetry shell && poetry install"
@@ -146,3 +149,8 @@ alias dumppdf="prp /Users/daveliu/Code/pdf_extract/dumppdf.py"
 alias venv="source ./venv/bin/activate"
 alias trade="workon trading; cd ~/Code/trading; ls -ltr"
 source ~/.writemind_creds
+
+###########################
+# Apple-Specific commands
+###########################
+defaults write com.apple.finder AppleShowAllFiles TRUE ; killall Finder
