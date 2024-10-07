@@ -1,0 +1,148 @@
+# If you come from bash you might have to change your $PATH.
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
+
+# Path to your oh-my-zsh installation.
+export ZSH="/Users/daveliu/.oh-my-zsh"
+
+# hdf5 has the following notes:
+# Mac users may need to set the environment variable "HDF5_USE_FILE_LOCKING" to the five-character
+# string "FALSE" when accessing network mounted files.  This is an application run-time setting,
+# not a configure or build setting.  Otherwise errors such as "unable to open file" or "HDF5 error"
+# may be  encountered.
+export HDF5_USE_FILE_LOCKING="FALSE"
+
+# Theme and plugins
+ZSH_THEME="maran"
+
+# Uncomment the following line to use hyphen-insensitive completion. Case
+# sensitive completion must be off. _ and - will be interchangeable.
+HYPHEN_INSENSITIVE="true"
+
+# Uncomment the following line to enable command auto-correction.
+ENABLE_CORRECTION="true"
+
+# Disable marking untracked files under VCS as dirty. Makes Large repository status check faster.
+DISABLE_UNTRACKED_FILES_DIRTY="false"
+
+# You can set one of the optional three formats:
+# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+# see 'man strftime' for details.
+HIST_STAMPS="mm/dd/yyyy"
+
+# Plugins can be found in ~/.oh-my-zsh/plugins/*)
+# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+plugins=(
+  git
+)
+
+# These are Maran theme settings
+PROMPT='%{$fg[cyan]%}%n%{$reset_color%}@%{$fg[yellow]%}%M:%{$fg[green]%}%/%{$reset_color%}$(git_prompt_info) %(!.#.$) '
+ZSH_THEME_GIT_PROMPT_PREFIX=" %{$fg[cyan]%}git:("
+ZSH_THEME_GIT_PROMPT_SUFFIX=")%{$reset_color%}"
+
+# Prompt with timestamp
+PROMPT='%{$fg[yellow]%}[%D{%a, %b %d} %D{%L:%M:%S}] '$PROMPT
+
+source $ZSH/oh-my-zsh.sh
+
+# Virtual Env Wrapper
+export WORKON_HOME=$HOME/.virtualenvs
+export VIRTUALENVWRAPPER_PYTHON=/opt/local/bin/python3.11
+source /opt/local/Library/Frameworks/Python.framework/Versions/3.11/bin/virtualenvwrapper.sh
+
+# User configuration
+source ~/.robinhood_credentials
+source ~/.openai_credentials
+
+if [[ -n $SSH_CONNECTION ]]; then
+  export EDITOR='vim'
+else
+  # These days, I'm trying to use VSCode more instead of Sublime Text
+  # export EDITOR='subl'
+  export EDITOR='code -w'
+fi
+
+###########################
+# Shortcut Aliases
+###########################
+
+# Changing Project Directories
+# alias <project>='workon <project>; cd ~/<project>'
+
+# Basic Shortcuts
+alias jupiter='jupyter notebook'
+alias check_format='flake8 app/ tests/ benchmark/ server.py'
+alias check_all="check_format; echo 'done checking flake8 formatting.'; pytest --disable-pytest-warnings tests/"
+alias firehose="python ~/bin/trigger_firehose"
+
+# Aliases for common tasks
+# Poetry
+alias pupdate="poetry update"
+alias pinstall="poetry shell && poetry install"
+
+# Python
+alias deps="pip freeze"
+
+# Git
+alias add="git add ."
+alias branch="git branch"
+alias status="git status"
+alias gs="git status"
+alias push="git push -u"
+alias clean="git clean -n"
+alias undo="git reset HEAD~1"
+alias commit="git add . && git commit -m"
+alias pull="git checkout main && git pull origin main && git pull && git checkout - && git pull"
+alias merge="pull && git merge main"
+
+# System information
+alias lscpus="python -c 'import multiprocessing as m; print(m.cpu_count())'"
+alias cpus=lscpus
+
+# # Code formatting and linting
+# alias fmt="poetry run black ; make fmt ; make lint;"
+# alias lint="fmt && lint"
+# alias test="fmt ; make test"
+
+# # Kubernetes - Change `KUBE_PATH` to customize
+# export KUBE_PATH='<PRIVATE>'
+# export FEATURE_BRANCH_PATH='feature-<STORY_ID>'
+# alias kube_shell='<pod> exec -it $KUBE_PATH -n $FEATURE_BRANCH_PATH -- bash'
+
+# Run tests, report coverage
+alias cov='pytest --cov-report term-missing --cov=app/models/team_size tests/models/team_size'
+
+# Misc
+alias check_10_times='for i in {1..10}; do check_all; done'
+
+# kubectl aliases
+
+alias ns='kubectl get namespaces'
+
+alias kc='kubectl'
+alias kk='kubectl -n $(echo `git symbolic-ref --short -q HEAD` | sed "s/.*\///" | sed "s/_/-/") "$@"'
+alias pods_stage='kubectl -n ds-staging get pods'
+alias pods_prod='kubectl -n ds-production get pods'
+alias klogin='kubectl exec -it -n $(echo `git symbolic-ref --short -q HEAD` | sed "s/.*\///" | sed "s/_/-/") "$@"'
+alias klogin_stage='kubectl exec -it -n ds-staging'
+alias klogin_prod='kubectl exec -it -n ds-production'
+alias pods_help='
+    echo "show_pods (or) kubectl -n ds-staging get pods"
+    echo "show_pods_prod (or) kubectl -n ds-production get pods"
+    echo "kk get pods"
+    echo "kk get namespaces"
+    echo "kubectl exec -it -n chxxxx tagging-sqs-bulk-xxxxxxxxx  bash"
+    echo "kubectl logs --previous -n  chXX  tagging-sqs-bulk-xx"
+    echo "kubectl scale deployment tagging-sqs-bulk -n chxxxxx --replicas=0"
+    '
+
+###########################
+# Side-project Aliases
+###########################
+
+alias prp="pipenv run python"
+alias pdf2txt="prp /Users/daveliu/Code/pdf_extract/pdf2txt.py"
+alias dumppdf="prp /Users/daveliu/Code/pdf_extract/dumppdf.py"
+alias venv="source ./venv/bin/activate"
+alias trade="workon trading; cd ~/Code/trading; ls -ltr"
+source ~/.writemind_creds
