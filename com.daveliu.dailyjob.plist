@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.daveliu.dailyjob</string>
+
+    <!-- Run the job daily at 8 AM -->
+    <key>StartCalendarInterval</key>
+    <dict>
+        <key>Hour</key>
+        <integer>10</integer>
+        <key>Minute</key>
+        <integer>0</integer>
+    </dict>
+
+    <!-- Specify the path to the Python script -->
+    <key>ProgramArguments</key>
+    <array>
+        <string>/Users/daveliu/.virtualenvs/trading_predictions/bin/python</string>
+        <string>/Users/daveliu/Code/trading_predictions/plist_wrapper.py</string>
+    </array>
+
+    <!-- Keep the task running if the Mac is asleep -->
+    <key>KeepAlive</key>
+    <true/>
+
+    <!-- Run as soon as the Mac wakes up, if it was asleep at the scheduled time -->
+    <key>StartOnMount</key>
+    <true/>
+
+    <!-- Redirect standard output and error to a log file for debugging -->
+    <key>StandardOutPath</key>
+    <string>/tmp/trading_plist_wrapper.log</string>
+    <key>StandardErrorPath</key>
+    <string>/tmp/trading_plist_wrapper.log</string>
+</dict>
+</plist>
+

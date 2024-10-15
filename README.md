@@ -1,2 +1,8 @@
-# aliases
-A bunch of useful or funny ZSH aliases
+# Setup Utilties
+
+### Aliases
+### (OSX) Terminal Interface
+### ZSH Setup / Prompt / Plugins
+### Make Commands
+### (OSX) Plist Utilities
+
