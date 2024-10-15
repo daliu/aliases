@@ -19,7 +19,7 @@ ZSH_THEME="maran"
 HYPHEN_INSENSITIVE="true"
 
 # Uncomment the following line to enable command auto-correction.
-ENABLE_CORRECTION="true"
+# ENABLE_CORRECTION="true"
 
 # Disable marking untracked files under VCS as dirty. Makes Large repository status check faster.
 DISABLE_UNTRACKED_FILES_DIRTY="false"
@@ -31,12 +31,22 @@ HIST_STAMPS="mm/dd/yyyy"
 
 # Plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# (Included my favorites by default.)
 plugins=(
+  1password
+  alias-finder
+  aliases
+  aws
+  command-not-found
   git
+  virtualenv
+  virtualenvwrapper
+  vscode
+  zsh-navigation-tools
 )
 
 # These are Maran theme settings
-PROMPT='%{$fg[cyan]%}%n%{$reset_color%}@%{$fg[yellow]%}%M:%{$fg[green]%}%/%{$reset_color%}$(git_prompt_info) %(!.#.$) '
+PROMPT='%{$fg[yellow]%}[%D{%a, %b %d} %D{%L:%M:%S}] %{$fg[cyan]%}%n%{$reset_color%}@%{$fg[yellow]%}%M:%{$fg[green]%}%/%{$reset_color%}$(git_prompt_info) %(!.#.$) '
 ZSH_THEME_GIT_PROMPT_PREFIX=" %{$fg[cyan]%}git:("
 ZSH_THEME_GIT_PROMPT_SUFFIX=")%{$reset_color%}"
 
