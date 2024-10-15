@@ -64,6 +64,7 @@ source /opt/local/Library/Frameworks/Python.framework/Versions/3.11/bin/virtuale
 source ~/.robinhood_credentials
 source ~/.openai_credentials
 
+# Code Editor / IDE
 if [[ -n $SSH_CONNECTION ]]; then
   export EDITOR='vim'
 else
