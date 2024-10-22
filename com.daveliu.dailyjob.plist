@@ -5,11 +5,20 @@
     <key>Label</key>
     <string>com.daveliu.dailyjob</string>
 
+    <!-- Run the job when it's loaded, and keep alive if program fails to successfully exit.-->
+    <key>RunAtLoad</key>
+    <true/>
+    <key>KeepAlive</key>
+    <dict>
+        <key>SuccessfulExit</key>
+        <false/>
+    </dict>
+
     <!-- Run the job daily at 8 AM -->
     <key>StartCalendarInterval</key>
     <dict>
         <key>Hour</key>
-        <integer>10</integer>
+        <integer>8</integer>
         <key>Minute</key>
         <integer>0</integer>
     </dict>
@@ -20,10 +29,6 @@
         <string>/Users/daveliu/.virtualenvs/trading_predictions/bin/python</string>
         <string>/Users/daveliu/Code/trading_predictions/plist_wrapper.py</string>
     </array>
-
-    <!-- Keep the task running if the Mac is asleep -->
-    <key>KeepAlive</key>
-    <true/>
 
     <!-- Run as soon as the Mac wakes up, if it was asleep at the scheduled time -->
     <key>StartOnMount</key>
@@ -36,4 +41,3 @@
     <string>/tmp/trading_plist_wrapper.log</string>
 </dict>
 </plist>
-
